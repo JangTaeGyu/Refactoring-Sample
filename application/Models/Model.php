@@ -2,9 +2,12 @@
 namespace App\Models;
 
 use App\Libraries\Loader;
+use App\Models\Traits\CrudTrait as Crud;
 
 class Model
 {
+    use Crud;
+    
     protected $db = null;
 
     private $prefix = 'scope';

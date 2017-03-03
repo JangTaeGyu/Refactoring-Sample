@@ -26,7 +26,7 @@ if (! function_exists('view')) {
             return ob_get_clean();
         }
 
-        return new Exception("파일을 찾을 수 없습니다.");
+        return new \Exception('파일을 찾을 수 없습니다.');
     }
 }
 

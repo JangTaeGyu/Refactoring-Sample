@@ -4,6 +4,11 @@
     "autoload": {
         "psr-4": {
             "App\\": "application"
-        }
+        },
+        "files": [
+            "application/Helpers/Connection.php",
+            "application/Helpers/Request.php",
+            "application/Helpers/Response.php"
+        ]
     }
 }

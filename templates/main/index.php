@@ -8,13 +8,5 @@
     </head>
     <body>
 
-        <ul>
-
-        <?php foreach ($database['localhost'] as $key => $value): ?>
-            <li><?= $key ?> : <?= $value ?></li>
-        <?php endforeach; ?>
-
-        </ul>
-
     </body>
 </html>

@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html lang="ko">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-        <meta http-equiv="imagetoolbar" content="no">
-        <title>Refactoring Sample</title>
-    </head>
-    <body>
 
-    </body>
-</html>
+<?= view('layout/top.php', ['title' => '메인']); ?>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>메인</h1>
+        </div>
+    </div>
+</div>
+
+<?= view('layout/bottom.php'); ?>

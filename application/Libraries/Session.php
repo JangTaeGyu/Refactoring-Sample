@@ -31,7 +31,7 @@ class Session
         }
     }
 
-    public function scopeFlash($name, $string = '')
+    public function scopeFlash($name, $value = '')
     {
         if (self::exists($name)) {
             $session = self::get($name);
@@ -39,7 +39,7 @@ class Session
 
             return $session;
         } else {
-            self::put($name, $string);
+            self::put($name, $value);
         }
     }
 

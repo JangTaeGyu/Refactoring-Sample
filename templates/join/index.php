@@ -12,11 +12,11 @@
                         <input type="hidden" name="_token" value="<?= token() ?>">
                         <div class="form-group">
                             <label for="name">이름</label>
-                            <input type="text" name="name" class="form-control" placeholder="이름을 입력해 주세요.">
+                            <input type="text" name="name" value="<?= old('name'); ?>" class="form-control" placeholder="이름을 입력해 주세요.">
                         </div>
                         <div class="form-group">
                             <label for="email">이메일</label>
-                            <input type="email" name="email" class="form-control" placeholder="이메일을 입력해 주세요.">
+                            <input type="email" name="email" value="<?= old('email'); ?>" class="form-control" placeholder="이메일을 입력해 주세요.">
                         </div>
                         <div class="form-group">
                             <label for="password">비밀번호</label>

@@ -13,4 +13,18 @@ class User extends Model
     {
         parent::__construct();
     }
+
+    /**
+     * 이메일 충복 체크
+     *
+     * @param  string $email
+     * @return integer
+     */
+    public function emailOverlapCheck($email = '')
+    {
+        $stmt = $this->db->prepare("SELECT COUNT(*) AS count FROM development.users WHERE email = :email");
+        $stmt->execute(['email' => $email]);
+
+        return (int) $stmt->fetchColumn();
+    }
 }

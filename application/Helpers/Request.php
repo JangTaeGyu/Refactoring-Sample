@@ -1,4 +1,5 @@
 <?php
+use App\Libraries\Session;
 
 if (! function_exists('request')) {
     function request($method = 'GET', array $data = [])
@@ -23,6 +24,9 @@ if (! function_exists('request')) {
             $request = $input;
         }
 
+        // Request Session 저장하기
+        Session::put('old', $request);
+
         // Request Post 접근할때 무조건 토큰 추가
         if (! array_key_exists('_token', $request)) {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -31,5 +35,19 @@ if (! function_exists('request')) {
         }
 
         return $request;
+    }
+}
+
+if (! function_exists('old')) {
+    function old($name = '')
+    {
+        if (Session::exists('old')) {
+            $session = Session::get('old');
+            if (array_key_exists($name, $session)) {
+                return $session[$name];
+            }
+        }
+
+        return '';
     }
 }

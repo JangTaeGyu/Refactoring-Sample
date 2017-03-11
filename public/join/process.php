@@ -25,7 +25,7 @@ try {
         'updated_at' => date('Y-m-d H:i:s')
     ]);
     if ($index === 0) {
-        throw new Exception('회원가입에 실패 하였습니다. 다시 시도해 주세요.');
+        throw new \Exception('회원가입에 실패 하였습니다. 다시 시도해 주세요.');
     }
 
     Session::delete('old');

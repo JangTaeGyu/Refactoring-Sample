@@ -5,14 +5,13 @@ use App\Models\User;
 
 trait OnlyEmailUserTrait
 {
-    private function only_email_users($value)
+    private function only_email_users($email)
     {
-        $user = new User;
-        $count = $user->emailOverlapCheck($value);
-        if ($count === 0) {
-            return true;
+        $user = User::emailSearch($email);
+        if (is_object($user)) {
+            return false;
         }
 
-        return false;
+        return true;
     }
 }

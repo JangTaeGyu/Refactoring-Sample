@@ -3,7 +3,7 @@ namespace App\Models\Traits;
 
 trait CrudTrait
 {
-    private $fetchMode = \PDO::FETCH_OBJ;
+    protected $fetchMode = \PDO::FETCH_OBJ;
 
     public function scopeAll()
     {

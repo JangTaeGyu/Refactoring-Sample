@@ -20,11 +20,11 @@ class User extends Model
      * @param  string $email
      * @return integer
      */
-    public function emailOverlapCheck($email = '')
+    public function scopeEmailSearch($email = '')
     {
-        $stmt = $this->db->prepare("SELECT COUNT(*) AS count FROM development.users WHERE email = :email");
+        $stmt = $this->db->prepare('SELECT * FROM development.users WHERE email = :email');
         $stmt->execute(['email' => $email]);
 
-        return (int) $stmt->fetchColumn();
+        return $stmt->fetch($this->fetchMode);
     }
 }

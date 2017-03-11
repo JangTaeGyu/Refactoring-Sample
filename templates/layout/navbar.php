@@ -17,9 +17,25 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
+
+            <?php if (isLogin()): ?>
+
+                <li class="dropdown">
+                    <a href="/" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">안녕하세요 <?= session('email') ?>님 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/login/logout.php">로그아웃</a></li>
+                    </ul>
+                </li>
+
+            <?php else: ?>
+
                 <li><a href="<?= APP_URL ?>/join/">회원가입</a></li>
                 <li><a href="<?= APP_URL ?>/login/">로그인</a></li>
+
+            <?php endif; ?>
+
             </ul>
+
         </div>
     </div>
 </nav>

@@ -28,8 +28,6 @@ try {
         throw new \Exception('회원가입에 실패 하였습니다. 다시 시도해 주세요.');
     }
 
-    Session::delete('old');
-
     Session::flash('success', '회원가입에 성공 하였습니다.');
 
 } catch (\Exception $e) {

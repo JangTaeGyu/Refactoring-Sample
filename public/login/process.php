@@ -26,7 +26,8 @@ try {
         throw new \Exception('비밀번호가 일치하지 않습니다.');
     }
 
-    Session::delete('old');
+    $session = new Session;
+    $session();
 
     Session::flash('success', '로그인에 성공 하였습니다.');
 

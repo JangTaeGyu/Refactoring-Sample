@@ -1,6 +1,7 @@
 <?php
 
 use App\Libraries\Session;
+use App\Models\Session as Database;
 
 if (! function_exists('sessionExists')) {
     function sessionExists($name = '')
@@ -34,5 +35,37 @@ if (! function_exists('sessionFlash')) {
     function sessionFlash($name = '', $value = '')
     {
         return Session::flash($name, $value);
+    }
+}
+
+if (! function_exists('isLogin')) {
+    function isLogin()
+    {
+        $session = Database::find(session_id());
+        if (is_object($session)) {
+            return true;
+        }
+
+        return false;
+    }
+}
+
+if (! function_exists('session')) {
+    function session($key = '')
+    {
+        if (isLogin()) {
+
+            if (! isset($GLOBALS['session'])) {
+                $GLOBALS['session'] = Database::find(session_id());
+            }
+
+            if ($key !== '') {
+                return $GLOBALS['session']->{$key};
+            }
+
+            return $GLOBALS['session'];
+        }
+
+        return false;
     }
 }

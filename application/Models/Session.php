@@ -14,6 +14,14 @@ class Session extends Model
         parent::__construct();
     }
 
+    public function scopeSearch()
+    {
+        $stmt = $this->db->prepare('SELECT user.* FROM development.sessions AS session INNER JOIN users AS user ON user.id = session.user_id WHERE session.session_id = :session_id');
+        $stmt->execute(['session_id' => session_id()]);
+
+        return $stmt->fetch($this->fetchMode);
+    }
+
     public function scopeExpiration()
     {
         return $this->db

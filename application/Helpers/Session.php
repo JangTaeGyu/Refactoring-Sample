@@ -41,7 +41,7 @@ if (! function_exists('sessionFlash')) {
 if (! function_exists('isLogin')) {
     function isLogin()
     {
-        $session = Database::find(session_id());
+        $session = Database::search();
         if (is_object($session)) {
             return true;
         }
@@ -56,7 +56,7 @@ if (! function_exists('session')) {
         if (isLogin()) {
 
             if (! isset($GLOBALS['session'])) {
-                $GLOBALS['session'] = Database::find(session_id());
+                $GLOBALS['session'] = Database::search();
             }
 
             if ($key !== '') {

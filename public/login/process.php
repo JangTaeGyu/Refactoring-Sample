@@ -7,6 +7,12 @@ use App\Models\User;
 
 include_once $_SERVER['DOCUMENT_ROOT'] . '/../application/app.php';
 
+if (isLogin()) {
+
+    echo view('error/alertAfterTarget.php', ['message' => '이미 로그인을 하셨습니다.', 'target' => APP_URL]);
+    die;
+}
+
 $request = request('POST', [
     'email' => '', 'password' => ''
 ]);
@@ -26,8 +32,7 @@ try {
         throw new \Exception('비밀번호가 일치하지 않습니다.');
     }
 
-    $session = new Session;
-    $session();
+    Session::save($user->id);
 
     Session::flash('success', '로그인에 성공 하였습니다.');
 

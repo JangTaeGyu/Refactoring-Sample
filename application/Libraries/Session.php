@@ -10,64 +10,19 @@ class Session
 
     private $prefix = 'scope';
 
-    public function __invoke()
+    public function scopeSave($userId)
     {
-        session_destroy();
-
-        session_set_save_handler(
-            [$this, '_open'],
-            [$this, '_close'],
-            [$this, '_read'],
-            [$this, '_write'],
-            [$this, '_destroy'],
-            [$this, '_gc']
-        );
-
-        session_start();
-    }
-
-    public function _open($path, $name)
-    {
-        echo '_open : ' . $path . ' | ' . $name . '<br />';
-
-        return true;
-    }
-
-    public function _close()
-    {
-        return true;
-    }
-
-    public function _read($id)
-    {
-        $session = Database::find($id);
-        if (is_object($session)) {
-            return $session;
-        }
-
-        return '';
-    }
-
-    public function _write($id, $data)
-    {
-        $request = request('ALL');
-
         return Database::insert([
-            'session_id' => $id,
+            'session_id' => session_id(),
             'ip_address' => $_SERVER['REMOTE_ADDR'],
             'timestamp' => time() + (int) get_cfg_var('session.gc_maxlifetime'),
-            'email' => $request['email']
+            'user_id' => $userId
         ]);
     }
 
-    public function _destroy($id)
+    public function scopeCheckout()
     {
-        return Database::delete($id);
-    }
-
-    public function _gc($maxlifetime)
-    {
-        return Database::expiration();
+        return Database::delete(session_id());
     }
 
     public function scopeExists($name)

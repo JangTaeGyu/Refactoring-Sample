@@ -1,9 +1,14 @@
 <?php
 
-use App\Models\Session as Database;
+use App\Libraries\Session as Database;
 
 include_once $_SERVER['DOCUMENT_ROOT'] . '/../application/app.php';
 
-Database::delete(session_id());
+if (isLogin()) {
 
-redirect(APP_URL);
+    Database::checkout();
+
+    redirect(APP_URL);
+}
+
+echo view('error/alertAfterTarget.php', ['message' => '로그인 정보가 없습니다.', 'target' => APP_URL]);

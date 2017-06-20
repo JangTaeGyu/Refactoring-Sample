@@ -14,4 +14,4 @@ include_once BASE_PATH . 'vendor/autoload.php';
 
 date_default_timezone_set('Asia/Seoul');
 
-App\Models\Session::expiration();
+App\Models\Session::instance()->expiration();

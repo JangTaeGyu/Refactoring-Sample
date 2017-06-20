@@ -9,11 +9,6 @@ class Session extends Model
 
     protected $key = 'session_id';
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function scopeSearch()
     {
         $stmt = $this->db->prepare('SELECT user.* FROM development.sessions AS session INNER JOIN users AS user ON user.id = session.user_id WHERE session.session_id = :session_id');

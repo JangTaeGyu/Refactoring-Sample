@@ -1,18 +1,13 @@
 <?php
 namespace App\Libraries;
 
-use App\Libraries\Traits\CallStaticTrait as CallStatic;
-use App\Models\Session as Database;
+use App\Models\Session as TblSessions;
 
 class Session
 {
-    use CallStatic;
-
-    private $prefix = 'scope';
-
-    public function scopeSave($userId)
+    public static function save($userId)
     {
-        return Database::insert([
+        return TblSessions::insert([
             'session_id' => session_id(),
             'ip_address' => $_SERVER['REMOTE_ADDR'],
             'timestamp' => time() + (int) get_cfg_var('session.gc_maxlifetime'),
@@ -20,46 +15,46 @@ class Session
         ]);
     }
 
-    public function scopeCheckout()
+    public static function checkout()
     {
-        return Database::delete(session_id());
+        return TblSessions::delete(session_id());
     }
 
-    public function scopeExists($name)
+    public static function exists($name)
     {
         return array_key_exists($name, $_SESSION);
     }
 
-    public function scopePut($name, $value)
+    public static function set($name, $value)
     {
         return $_SESSION[$name] = $value;
     }
 
-    public function scopeGet($name)
+    public static function get($name)
     {
-        return $this->scopeExists($name) ? $_SESSION[$name] : '';
+        return self::exists($name) ? $_SESSION[$name] : '';
     }
 
-    public function scopeDelete($name)
+    public static function delete($name)
     {
-        if ($this->scopeExists($name)) {
+        if (self::exists($name)) {
             unset($_SESSION[$name]);
         }
     }
 
-    public function scopeFlash($name, $value = '')
+    public static function flash($name, $value = '')
     {
         if ($name === 'success') {
-            $this->scopeDelete('old');
+            self::delete('old');
         }
 
-        if ($this->scopeExists($name)) {
-            $session = $this->scopeGet($name);
-            $this->scopeDelete($name);
+        if (self::exists($name)) {
+            $session = self::get($name);
+            self::delete($name);
 
             return $session;
         } else {
-            $this->scopePut($name, $value);
+            self::set($name, $value);
         }
     }
 

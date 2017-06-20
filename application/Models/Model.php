@@ -30,4 +30,9 @@ class Model
 
         return new \Exception("{$callMethod} 메서드가 확인되지 않습니다.");
     }
+
+    final public function scopeInstance()
+    {
+        return $this;
+    }
 }
